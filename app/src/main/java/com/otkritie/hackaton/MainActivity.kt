@@ -24,7 +24,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var navController: NavController
+    lateinit var navController: NavController
 
 
     @Inject
@@ -35,7 +35,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         navController = Navigation.findNavController(this, R.id.nav_host_fragment_container)
-
 
         val digest = MessageDigest.getInstance("SHA-256")
 //        println(digest.digest("turkey_777".toByteArray()).commonToUtf8String())
