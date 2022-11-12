@@ -10,7 +10,7 @@ activity = "1.6.0"
 coroutines = "1.6.4"
 constraintLayout = "2.1.4"
 hilt-navigation = "1.0.0"
-navigation = "2.5.2"
+navigation = "2.5.3"
 material = "1.7.0"
 okhttp = "4.10.0"
 retrofit = "2.9.0"
@@ -26,6 +26,7 @@ android-library = { id = "com.android.library", version.ref = "android" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+safeArgs = { id = "androidx.navigation.safeargs.kotlin", version.ref = "navigation"}
 
 [libraries]
 appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
@@ -45,7 +46,8 @@ lifecycle-core = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", versio
 lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle" }
 lifecycle-livedata = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycle" }
 
-navigation = { module = "androidx.navigation:navigation-compose", version.ref = "navigation" }
+navigation-fragment = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigation" }
+navigation-ui = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigation" }
 
 okhttp-bom = { module = "com.squareup.okhttp3:okhttp-bom", version.ref = "okhttp" }
 okhttp-core = { module = "com.squareup.okhttp3:okhttp" }

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.otkritie.hackaton.databinding.FragmentChatScreenBinding
+import de.hdodenhof.circleimageview.CircleImageView
 
 class ChatScreen : Fragment() {
 

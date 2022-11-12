@@ -2,19 +2,12 @@ package com.otkritie.hackaton
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.NavHostFragment
-import com.otkritie.hackaton.data.manager.AuthManager
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-
-    @Inject
-    lateinit var authManager: AuthManager
 
     lateinit var navController: NavController
 
@@ -23,18 +16,5 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         navController = Navigation.findNavController(this, R.id.nav_host_fragment_container)
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container) as NavHostFragment
-        val graphInflater = navHostFragment.navController.navInflater
-        val navGraph = graphInflater.inflate(R.navigation.nav_graph)
-        navController = navHostFragment.navController
-
-        val destination = if (authManager.token != null) R.id.chatMenuScreen else R.id.signingScreen
-        navGraph.setStartDestination(destination)
-        navController.graph = navGraph
-
     }
-
-    @Deprecated("Deprecated in Java")
-    override fun onBackPressed() {}
 }
