@@ -1,6 +1,6 @@
 package com.otkritie.hackaton.data.repository
 
-import com.otkritie.hackaton.repository.Repository
+import com.otkritie.hackaton.domain.repository.Repository
 import javax.inject.Inject
 import javax.inject.Singleton
 
