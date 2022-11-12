@@ -27,7 +27,10 @@ android {
         getByName("release") {
             isMinifyEnabled = true
             isShrinkResources = true
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
@@ -36,6 +39,10 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+
+    buildFeatures {
+        viewBinding = true
     }
 }
 
@@ -55,6 +62,8 @@ dependencies {
     implementation(libs.coroutines.core)
     implementation(libs.coroutines.android)
     implementation(libs.hilt.android)
+    implementation("androidx.navigation:navigation-fragment-ktx:2.5.3")
+    implementation("androidx.navigation:navigation-ui-ktx:2.5.3")
     kapt(libs.hilt.compiler)
 
     implementation(libs.room.runtime)
@@ -67,4 +76,7 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.serialization)
     implementation(libs.converterFactory)
+
+    implementation(libs.circleImageView)
+
 }

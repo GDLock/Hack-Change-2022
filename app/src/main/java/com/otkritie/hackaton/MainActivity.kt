@@ -7,8 +7,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import com.otkritie.hackaton.data.remote.ChatApi
 import com.otkritie.hackaton.data.remote.model.auth.AuthorizationRequest
+import com.otkritie.hackaton.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -21,11 +24,19 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    @Inject lateinit var chatApi: ChatApi
+    private lateinit var navController: NavController
+
+
+    @Inject
+    lateinit var chatApi: ChatApi
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment_container)
+
+
         val digest = MessageDigest.getInstance("SHA-256")
 //        println(digest.digest("turkey_777".toByteArray()).commonToUtf8String())
 //        println(digest.digest("uganda_777".toByteArray()).commonToUtf8String())
@@ -45,9 +56,13 @@ class MainActivity : AppCompatActivity() {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 withContext(Dispatchers.IO) {
                     try {
-                        Log.e("RESPONSE", chatApi.authorization(AuthorizationRequest("uganda", password)).toString())
+                        Log.e(
+                            "RESPONSE",
+                            chatApi.authorization(AuthorizationRequest("uganda", password))
+                                .toString()
+                        )
                     } catch (e: HttpException) {
-                        runOnUiThread { findViewById<TextView>(R.id.title).text = "asdasdasd" }
+                        //runOnUiThread { findViewById<TextView>(R.id.title).text = "asdasdasd" }
                     }
 
                 }
