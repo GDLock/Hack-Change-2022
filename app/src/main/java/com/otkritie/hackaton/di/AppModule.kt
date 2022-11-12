@@ -9,6 +9,7 @@ import com.otkritie.hackaton.data.local.preference.AuthPreferenceImpl
 import com.otkritie.hackaton.data.manager.AuthManager
 import com.otkritie.hackaton.data.remote.ChatApi
 import com.otkritie.hackaton.data.remote.interceptor.AuthInterceptor
+import com.otkritie.hackaton.data.remote.interceptor.RestParamsInterceptor
 import com.otkritie.hackaton.data.remote.serializer.RoleAsStringSerializer
 import com.otkritie.hackaton.data.remote.websocket.WebSocketClient
 import com.otkritie.hackaton.data.remote.websocket.WebSocketListener
@@ -72,6 +73,7 @@ object AppModule {
     fun provideOkHttpClient(authManager: AuthManager) : OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(AuthInterceptor(authManager))
+            .addInterceptor(RestParamsInterceptor(json))
             .addInterceptor(HttpLoggingInterceptor().apply { level = BODY })
             .build()
     }

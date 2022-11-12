@@ -5,7 +5,6 @@ import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.otkritie.hackaton.data.remote.ChatApi
@@ -14,7 +13,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import okhttp3.MediaType.Companion.toMediaType
+import okio.internal.commonToUtf8String
 import retrofit2.HttpException
 import java.security.MessageDigest
 import javax.inject.Inject
@@ -30,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         val digest = MessageDigest.getInstance("SHA-256")
 //        println(digest.digest("turkey_777".toByteArray()).commonToUtf8String())
 //        println(digest.digest("uganda_777".toByteArray()).commonToUtf8String())
-        digest.update("colombia_686".toByteArray())
+        digest.update("uganda_777".toByteArray())
         val byteData = digest.digest()
         val stringBuilder = StringBuilder()
         for (x in byteData) {
@@ -41,7 +40,6 @@ class MainActivity : AppCompatActivity() {
             stringBuilder.append(str)
         }
         val password = stringBuilder.toString()
-        println("application/json".toMediaType())
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
