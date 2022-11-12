@@ -1,12 +1,15 @@
 package com.otkritie.hackaton.screens.chatmenu
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.otkritie.hackaton.R
-import com.otkritie.hackaton.data.remote.model.Question
+import com.otkritie.hackaton.domain.model.Question
+import de.hdodenhof.circleimageview.CircleImageView
 
 class QuestionAdapter : RecyclerView.Adapter<QuestionAdapter.QuestionViewHolder>() {
 
@@ -16,19 +19,25 @@ class QuestionAdapter : RecyclerView.Adapter<QuestionAdapter.QuestionViewHolder>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuestionViewHolder {
         val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.questions_item_layout, parent, false)
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.questions_item_layout, parent, false)
         return QuestionViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: QuestionViewHolder, position: Int) {
         val title = holder.itemView.findViewById<TextView>(R.id.tv_title_quest)
-        val avatar = holder.itemView.findViewById<TextView>(R.id.iv_avatar)
+        val avatar = holder.itemView.findViewById<CircleImageView>(R.id.iv_avatar_quest)
         title.text = listQ[position].title
-
-
+        avatar.setImageResource(listQ[position].img)
     }
 
     override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+        return listQ.size
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun setList(list: List<Question>) {
+        listQ = list.reversed()
+        notifyDataSetChanged()
     }
 }

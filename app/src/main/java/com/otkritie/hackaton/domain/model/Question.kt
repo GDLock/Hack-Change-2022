@@ -1,4 +1,4 @@
-package com.otkritie.hackaton.data.remote.model
+package com.otkritie.hackaton.domain.model
 
 data class Question(
     val img: Int,

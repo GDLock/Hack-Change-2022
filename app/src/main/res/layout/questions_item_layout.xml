@@ -8,7 +8,7 @@
     android:orientation="vertical">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/iv_avatar"
+        android:id="@+id/iv_avatar_quest"
         android:layout_width="106dp"
         android:layout_height="105dp"
         app:civ_border_color="@color/white"
