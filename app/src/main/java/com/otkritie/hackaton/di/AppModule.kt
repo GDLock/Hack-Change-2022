@@ -1,6 +1,5 @@
 package com.otkritie.hackaton.di
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
@@ -27,27 +26,12 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.logging.HttpLoggingInterceptor.Level.BODY
 import retrofit2.Retrofit
-import java.security.SecureRandom
-import java.security.cert.X509Certificate
 import javax.inject.Singleton
-import javax.net.ssl.SSLContext
-import javax.net.ssl.TrustManager
-import javax.net.ssl.X509TrustManager
 
 @OptIn(ExperimentalSerializationApi::class)
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
-
-//    val json = Json {
-//        ignoreUnknownKeys = true
-//        isLenient = true
-//        serializersModule = SerializersModule {
-//            contextual(RoleAsStringSerializer)
-//        }
-//    }
-
-    private const val AUTH_PREFERENCE = "auth_preference_key"
 
     private val json = Json {
         ignoreUnknownKeys = true
@@ -70,7 +54,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(authManager: AuthManager) : OkHttpClient {
+    fun provideOkHttpClient(authManager: AuthManager): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(AuthInterceptor(authManager))
             .addInterceptor(RestParamsInterceptor(json))
@@ -80,7 +64,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideWebSocketClient(okHttpClient: OkHttpClient) : WebSocketClient {
+    fun provideWebSocketClient(okHttpClient: OkHttpClient): WebSocketClient {
         return WebSocketClient(okHttpClient, ChatApi.WEBSOCKET_URL, WebSocketListener())
     }
 
@@ -90,4 +74,6 @@ object AppModule {
         val sharedPreference = context.getSharedPreferences(AUTH_PREFERENCE, MODE_PRIVATE)
         return AuthPreferenceImpl(sharedPreference)
     }
+
+    private const val AUTH_PREFERENCE = "auth_preference_key"
 }
