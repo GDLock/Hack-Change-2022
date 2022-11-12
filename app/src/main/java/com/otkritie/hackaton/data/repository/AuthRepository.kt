@@ -2,6 +2,7 @@ package com.otkritie.hackaton.data.repository
 
 import com.otkritie.hackaton.data.local.preference.AuthPreference
 import com.otkritie.hackaton.data.remote.datasource.AuthRemoteDataSource
+import com.otkritie.hackaton.data.remote.model.Role
 import com.otkritie.hackaton.data.remote.model.auth.AuthorizationResponse
 import java.security.MessageDigest
 import javax.inject.Inject
@@ -36,6 +37,7 @@ class AuthRepository @Inject constructor(
             password = passwordHash,
             onSuccess = {
                 authPreference.token = it?.token
+                authPreference.role = it?.role ?: Role.CLIENT
                 onSuccess(it)
             },
             onFailure = onFailure
