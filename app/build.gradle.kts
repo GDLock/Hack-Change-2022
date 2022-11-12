@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.hilt)
+    alias(libs.plugins.safeArgs)
     alias(libs.plugins.serialization)
     kotlin("kapt")
 }
@@ -62,8 +63,8 @@ dependencies {
     implementation(libs.coroutines.core)
     implementation(libs.coroutines.android)
     implementation(libs.hilt.android)
-    implementation("androidx.navigation:navigation-fragment-ktx:2.5.3")
-    implementation("androidx.navigation:navigation-ui-ktx:2.5.3")
+    implementation(libs.navigation.fragment)
+    implementation(libs.navigation.ui)
     kapt(libs.hilt.compiler)
 
     implementation(libs.room.runtime)
