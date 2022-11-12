@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Hackaton</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tv_sign_in">Вход</string>
+    <string name="et_password">Пароль</string>
+    <string name="et_login">Логин</string>
 </resources>
