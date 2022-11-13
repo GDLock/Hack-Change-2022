@@ -13,7 +13,7 @@
         android:layout_height="105dp"
         app:civ_border_color="@color/white"
         app:civ_border_width="2dp"
-        tools:src="@drawable/test_avatar" />
+        tools:src="@drawable/logo_bank" />
 
     <TextView
         android:id="@+id/tv_title_quest"
