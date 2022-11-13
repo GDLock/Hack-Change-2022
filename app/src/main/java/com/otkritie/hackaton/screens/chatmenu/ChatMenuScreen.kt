@@ -6,13 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.findNavController
-import androidx.recyclerview.widget.RecyclerView
 import com.otkritie.hackaton.R
 import com.otkritie.hackaton.databinding.FragmentChatMenuScreenBinding
 import com.otkritie.hackaton.domain.model.Question
 
 class ChatMenuScreen : Fragment() {
+
 
     private val lst = listOf<Question>(
         Question(R.drawable.test_avatar, "С чего начать"),
@@ -40,10 +41,6 @@ class ChatMenuScreen : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         mBinding.apply {
-
-            val action = 
-
-
 
             questionAdapter.setList(lst)
             rvListQuestions.adapter = questionAdapter

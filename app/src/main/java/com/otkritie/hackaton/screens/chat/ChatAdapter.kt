@@ -1,0 +1,82 @@
+package com.otkritie.hackaton.screens.chat
+
+import android.annotation.SuppressLint
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
+import com.otkritie.hackaton.R
+import com.otkritie.hackaton.domain.model.MessageViewRenderer
+import java.util.Calendar
+
+class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatViewHolder>() {
+
+    private var msgList = emptyList<MessageViewRenderer>()
+
+    private val callback = object : DiffUtil.ItemCallback<MessageViewRenderer>() {
+        override fun areItemsTheSame(
+            oldItem: MessageViewRenderer,
+            newItem: MessageViewRenderer
+        ): Boolean {
+            return oldItem.mediaUrl == newItem.mediaUrl
+        }
+
+        override fun areContentsTheSame(
+            oldItem: MessageViewRenderer,
+            newItem: MessageViewRenderer
+        ): Boolean {
+            return oldItem == newItem
+        }
+
+    }
+
+    val differ = AsyncListDiffer(this, callback)
+
+
+    class ChatViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatViewHolder {
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.message_item, parent, false)
+        return ChatViewHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: ChatViewHolder, position: Int) {
+
+        //Получаем актуальное время
+        val date = Calendar.getInstance().time
+
+        //tv времени отправки сообщений
+        val tvTimeUser = holder.itemView.findViewById<TextView>(R.id.tv_date_user)
+        val tvTimeOpponent = holder.itemView.findViewById<TextView>(R.id.tv_date_opponent)
+
+        //tv Текстов сообщений
+        val msgUser = holder.itemView.findViewById<TextView>(R.id.tv_user_message)
+        val msgOpponent = holder.itemView.findViewById<TextView>(R.id.tv_opponent_message)
+
+        if (msgList[position].isMine) {
+            msgUser.text = msgList[position].text
+            msgOpponent.visibility = View.INVISIBLE
+        } else {
+            msgOpponent.text = msgList[position].text
+            msgUser.visibility = View.INVISIBLE
+        }
+
+        tvTimeUser.text = date.toString()
+        tvTimeOpponent.text = date.toString()
+
+    }
+
+    override fun getItemCount(): Int {
+        return msgList.size
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun setList(list: List<MessageViewRenderer>) {
+        msgList = list
+        notifyDataSetChanged()
+    }
+}

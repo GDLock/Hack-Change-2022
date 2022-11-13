@@ -11,7 +11,8 @@ import com.otkritie.hackaton.R
 import com.otkritie.hackaton.domain.model.Question
 import de.hdodenhof.circleimageview.CircleImageView
 
-class QuestionAdapter : RecyclerView.Adapter<QuestionAdapter.QuestionViewHolder>() {
+class QuestionAdapter() :
+    RecyclerView.Adapter<QuestionAdapter.QuestionViewHolder>() {
 
     var listQ = emptyList<Question>()
 
@@ -29,6 +30,8 @@ class QuestionAdapter : RecyclerView.Adapter<QuestionAdapter.QuestionViewHolder>
         val avatar = holder.itemView.findViewById<CircleImageView>(R.id.iv_avatar_quest)
         title.text = listQ[position].title
         avatar.setImageResource(listQ[position].img)
+//        holder.itemView.setOnClickListener { onClick }
+
     }
 
     override fun getItemCount(): Int {
@@ -40,4 +43,5 @@ class QuestionAdapter : RecyclerView.Adapter<QuestionAdapter.QuestionViewHolder>
         listQ = list.reversed()
         notifyDataSetChanged()
     }
+
 }

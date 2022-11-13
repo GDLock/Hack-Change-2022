@@ -31,5 +31,8 @@
         <action
             android:id="@+id/action_chatScreen_to_chatMenuScreen"
             app:destination="@id/chatMenuScreen" />
+        <argument
+            android:name="myId"
+            app:argType="integer" />
     </fragment>
 </navigation>

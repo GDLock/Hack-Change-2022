@@ -6,6 +6,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import com.otkritie.hackaton.data.manager.AuthManager
+import com.otkritie.hackaton.screens.chatmenu.ChatMenuScreen
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -31,7 +32,6 @@ class MainActivity : AppCompatActivity() {
         val destination = if (authManager.token != null) R.id.chatMenuScreen else R.id.signingScreen
         navGraph.setStartDestination(destination)
         navController.graph = navGraph
-
 
     }
 }

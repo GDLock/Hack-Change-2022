@@ -9,5 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="my_blue">#3AB6EC</color>
     <color name="morning_grey">#F0F4F7</color>
+    <color name="purple_light">#815DE3</color>
+    <color name="purple_dark">#5D3FAF</color>
 
 </resources>

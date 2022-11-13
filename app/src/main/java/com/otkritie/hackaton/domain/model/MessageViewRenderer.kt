@@ -7,3 +7,5 @@ data class MessageViewRenderer(
     val mediaUrl: String?,
     val isMine: Boolean
 )
+
+//diff util callback
