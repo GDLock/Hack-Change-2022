@@ -1,5 +1,6 @@
 package com.otkritie.hackaton.data.repository
 
+import com.otkritie.hackaton.data.local.preference.AuthPreference
 import com.otkritie.hackaton.data.remote.datasource.ChatRemoteDataSource
 import com.otkritie.hackaton.data.remote.model.history.GetHistoryResponse
 import com.otkritie.hackaton.data.remote.model.send.SendMessageRequest
@@ -10,9 +11,12 @@ import javax.inject.Singleton
 
 @Singleton
 class ChatRepository @Inject constructor(
+    private val authPreference: AuthPreference,
     private val chatRemoteDataSource: ChatRemoteDataSource,
     private val webSocketClient: WebSocketClient
 ) {
+
+    val id = authPreference.id
 
     suspend fun getHistory(id: Int, onSuccess: (GetHistoryResponse?) -> Unit, onFailure: (String) -> Unit) {
         chatRemoteDataSource.getHistory(id,onSuccess,onFailure)

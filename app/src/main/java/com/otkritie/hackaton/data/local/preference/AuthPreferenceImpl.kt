@@ -39,6 +39,10 @@ class AuthPreferenceImpl(
             setString(ROLE_KEY, value.name)
         }
 
+    override var id: Int
+        get() = preference.getInt(ID_KEY, 0)
+        set(value) { preference.edit().putInt(ID_KEY, value).apply()}
+
     override fun clear() {
         preference.edit().clear().apply()
     }
@@ -53,5 +57,6 @@ class AuthPreferenceImpl(
         const val SURNAME_KEY = "surname"
         const val MIDDLE_NAME_KEY = "middle_name"
         const val ROLE_KEY = "role"
+        const val ID_KEY = "id"
     }
 }

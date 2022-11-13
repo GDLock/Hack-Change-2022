@@ -19,6 +19,7 @@ converterFactory = "0.8.0"
 room = "2.4.3"
 lifecycle = "2.5.1"
 circleVersion = "3.1.0"
+desugarJdkLibs = "1.1.5"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "android" }
@@ -32,6 +33,8 @@ safeArgs = { id = "androidx.navigation.safeargs.kotlin", version.ref = "navigati
 appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 core = { module = "androidx.core:core-ktx", version.ref = "core" }
 material = { module = "com.google.android.material:material", version.ref = "material" }
+
+desugarJdkLibs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugarJdkLibs" }
 
 activity = { module = "androidx.activity:activity-compose", version.ref = "activity" }
 constraintLayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintLayout" }

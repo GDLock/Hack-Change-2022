@@ -8,34 +8,15 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.otkritie.hackaton.R
 import com.otkritie.hackaton.domain.model.MessageViewRenderer
 import java.util.Calendar
 
-class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatViewHolder>() {
+class ChatAdapter : ListAdapter<MessageViewRenderer, ChatAdapter.ChatViewHolder>(DiffUtilCallback()) {
 
     private var msgList = emptyList<MessageViewRenderer>()
-
-    private val callback = object : DiffUtil.ItemCallback<MessageViewRenderer>() {
-        override fun areItemsTheSame(
-            oldItem: MessageViewRenderer,
-            newItem: MessageViewRenderer
-        ): Boolean {
-            return oldItem.id == newItem.id
-        }
-
-        override fun areContentsTheSame(
-            oldItem: MessageViewRenderer,
-            newItem: MessageViewRenderer
-        ): Boolean {
-            return oldItem == newItem
-        }
-
-    }
-
-    val differ = AsyncListDiffer(this, callback)
-
 
     class ChatViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
@@ -83,5 +64,16 @@ class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatViewHolder>() {
     fun setList(list: List<MessageViewRenderer>) {
         msgList = list
         notifyDataSetChanged()
+    }
+}
+
+class DiffUtilCallback: DiffUtil.ItemCallback<MessageViewRenderer>() {
+
+    override fun areItemsTheSame(oldItem: MessageViewRenderer, newItem: MessageViewRenderer): Boolean {
+        return oldItem.id == newItem.id
+    }
+
+    override fun areContentsTheSame(oldItem: MessageViewRenderer, newItem: MessageViewRenderer): Boolean {
+        return oldItem == newItem
     }
 }

@@ -38,6 +38,7 @@ class AuthRepository @Inject constructor(
             onSuccess = {
                 authPreference.token = it?.token
                 authPreference.role = it?.role ?: Role.CLIENT
+                authPreference.id = it?.id ?: 0
                 onSuccess(it)
             },
             onFailure = onFailure

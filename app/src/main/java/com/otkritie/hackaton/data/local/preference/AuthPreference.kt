@@ -14,5 +14,7 @@ interface AuthPreference {
 
     var role: Role
 
+    var id: Int
+
     fun clear()
 }

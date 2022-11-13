@@ -30,31 +30,17 @@ class ChatViewModel @Inject constructor(
     private val _list = MutableLiveData<List<MessageViewRenderer>>()
     val list: LiveData<List<MessageViewRenderer>> = _list
 
-//    private val _message = MutableLiveData("")
-//    val message: LiveData<String> = _message
-
     var message = ""
 
     private val _clearMessageEvent = Channel<String>()
     val clearMessageEvent = _clearMessageEvent.receiveAsFlow()
-
-//    private val _newMessageEvent = Channel<MessageData>()
-//    val newMessageEvent = _newMessageEvent.receiveAsFlow()
-//
-////    fun setMessage(value: String) {
-////        _message.value = value
-////    }
-//
-////    val listener = WebSocketListener()
-
-    var newMessage: MessageData? = null
 
     fun getHistory() {
         viewModelScope.launch {
             id?.let {
                 chatRepository.getHistory(id,
                     onSuccess = {
-                        _list.value = it?.messages?.map { it.toViewRenderer(100777) }
+                        _list.value = it?.messages?.map { it.toViewRenderer(chatRepository.id) }
                     },
                     onFailure = {
 
@@ -63,7 +49,8 @@ class ChatViewModel @Inject constructor(
 
             chatRepository.connect(WebSocketListener {
                 viewModelScope.launch {
-                    val message = it.toViewRenderer(100777)
+                    Log.e("Message", it.toString())
+                    val message = it.toViewRenderer(chatRepository.id)
                     _list.value = listOf(message) + (list.value ?: emptyList())
                 }
             })
@@ -74,6 +61,7 @@ class ChatViewModel @Inject constructor(
         viewModelScope.launch {
             id?.let {
                 if (message.isNotEmpty()) {
+                    Log.e("ID", chatRepository.id.toString())
                     chatRepository.sendMessage(
                         id, message,
                         onSuccess = {
