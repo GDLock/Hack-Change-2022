@@ -35,6 +35,7 @@
 
     <LinearLayout
         android:id="@+id/chat"
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -46,7 +47,7 @@
             android:id="@+id/iv_avatar"
             android:layout_width="96dp"
             android:layout_height="85dp"
-            android:src="@drawable/test_avatar"
+            android:src="@drawable/logo_bank"
             app:civ_border_color="@color/white"
             app:civ_border_width="2dp"/>
 
@@ -65,7 +66,7 @@
                 android:textColor="@color/black"
                 android:textSize="26sp"
                 android:textStyle="bold"
-                tools:text="Поддержка" />
+                android:text="Поддержка" />
 
             <Space
                 android:layout_width="match_parent"
