@@ -15,12 +15,13 @@ class ChatMenuViewModel @Inject constructor(
     private val repository: ChatMenuRepository
 ) : ViewModel() {
 
-    var _id = 0
+    private var _id = 0
+    val id get() = _id
 
     private val _requestEvent = MutableLiveData<RequestState>()
     val requestEvent: LiveData<RequestState> = _requestEvent
 
-    init {
+    fun requestDialog() {
         viewModelScope.launch {
             _requestEvent.value = RequestState.Loading
             repository.getDialogId(

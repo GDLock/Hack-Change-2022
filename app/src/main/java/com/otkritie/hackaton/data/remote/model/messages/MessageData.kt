@@ -5,7 +5,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-class MessageData private constructor(
+data class MessageData(
 
     @SerialName("data")
     val data: String? = null,
