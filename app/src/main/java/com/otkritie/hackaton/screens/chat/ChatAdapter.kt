@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
@@ -21,7 +22,7 @@ class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatViewHolder>() {
             oldItem: MessageViewRenderer,
             newItem: MessageViewRenderer
         ): Boolean {
-            return oldItem.mediaUrl == newItem.mediaUrl
+            return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(
@@ -56,17 +57,21 @@ class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatViewHolder>() {
         //tv Текстов сообщений
         val msgUser = holder.itemView.findViewById<TextView>(R.id.tv_user_message)
         val msgOpponent = holder.itemView.findViewById<TextView>(R.id.tv_opponent_message)
+        val llOpponent = holder.itemView.findViewById<LinearLayout>(R.id.rl_message_opponent)
+        val llUser = holder.itemView.findViewById<LinearLayout>(R.id.rl_message_user)
 
         if (msgList[position].isMine) {
             msgUser.text = msgList[position].text
-            msgOpponent.visibility = View.INVISIBLE
+            llOpponent.visibility = View.GONE
+            llUser.visibility = View.VISIBLE
         } else {
             msgOpponent.text = msgList[position].text
-            msgUser.visibility = View.INVISIBLE
+            llUser.visibility = View.GONE
+            llOpponent.visibility = View.VISIBLE
         }
 
-        tvTimeUser.text = date.toString()
-        tvTimeOpponent.text = date.toString()
+        tvTimeUser.text = msgList[position].time
+        tvTimeOpponent.text = msgList[position].time
 
     }
 

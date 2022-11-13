@@ -11,7 +11,6 @@ import com.otkritie.hackaton.data.remote.interceptor.AuthInterceptor
 import com.otkritie.hackaton.data.remote.interceptor.RestParamsInterceptor
 import com.otkritie.hackaton.data.remote.serializer.RoleAsStringSerializer
 import com.otkritie.hackaton.data.remote.websocket.WebSocketClient
-import com.otkritie.hackaton.data.remote.websocket.WebSocketListener
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -53,7 +52,6 @@ object AppModule {
     }
 
     @Provides
-    @Singleton
     fun provideOkHttpClient(authManager: AuthManager): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(AuthInterceptor(authManager))
@@ -64,8 +62,8 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideWebSocketClient(okHttpClient: OkHttpClient): WebSocketClient {
-        return WebSocketClient(okHttpClient, ChatApi.WEBSOCKET_URL, WebSocketListener())
+    fun provideWebSocketClient(authManager: AuthManager): WebSocketClient {
+        return WebSocketClient(json, authManager, ChatApi.WEBSOCKET_URL)
     }
 
     @Provides

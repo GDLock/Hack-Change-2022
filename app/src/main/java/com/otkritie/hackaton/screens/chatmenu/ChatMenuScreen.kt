@@ -11,7 +11,10 @@ import androidx.navigation.findNavController
 import com.otkritie.hackaton.R
 import com.otkritie.hackaton.databinding.FragmentChatMenuScreenBinding
 import com.otkritie.hackaton.domain.model.Question
+import com.otkritie.hackaton.screens.chat.ChatScreenDirections
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ChatMenuScreen : Fragment() {
 
 
@@ -34,6 +37,7 @@ class ChatMenuScreen : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentChatMenuScreenBinding.inflate(layoutInflater, container, false)
+        viewModel.requestDialog()
         return mBinding.root
     }
 
@@ -44,6 +48,10 @@ class ChatMenuScreen : Fragment() {
 
             questionAdapter.setList(lst)
             rvListQuestions.adapter = questionAdapter
+            chat.setOnClickListener {
+                val action = ChatMenuScreenDirections.actionChatMenuScreenToChatScreen(viewModel.id)
+                root.findNavController().navigate(action)
+            }
         }
     }
 

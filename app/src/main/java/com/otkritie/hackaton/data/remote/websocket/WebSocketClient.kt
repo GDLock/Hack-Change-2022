@@ -1,27 +1,43 @@
 package com.otkritie.hackaton.data.remote.websocket
 
-import android.util.Log
+import com.otkritie.hackaton.data.manager.AuthManager
+import com.otkritie.hackaton.data.remote.interceptor.AuthInterceptor
+import com.otkritie.hackaton.data.remote.interceptor.RestParamsInterceptor
+import com.otkritie.hackaton.di.AppModule
+import kotlinx.serialization.json.Json
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.WebSocket
+import okhttp3.logging.HttpLoggingInterceptor
 
 class WebSocketClient(
-    private val client: OkHttpClient,
+    private val json: Json,
+    private val authManager: AuthManager,
     private val socketUrl: String,
-    private val listener: WebSocketListener
 ) {
     private var webSocket: WebSocket? = null
     private var shouldReconnect = false
+    private var listener: WebSocketListener? = null
+
+    private var client: OkHttpClient? = null
 
     private fun initWebSocket() {
-        Log.e("socketCheck", "initWebSocket() socketurl = $socketUrl")
+//        Log.e("socketCheck", "initWebSocket() socketurl = $socketUrl")
         val request = Request.Builder().url(url = socketUrl).build()
-        webSocket = client.newWebSocket(request, listener)
-        client.dispatcher.executorService.shutdown()
+        listener?.let {
+            webSocket = client?.newWebSocket(request, it)
+        }
+        client?.dispatcher?.executorService?.shutdown()
     }
 
-    fun connect() {
+    fun connect(listener: WebSocketListener) {
+        client = OkHttpClient.Builder()
+            .addInterceptor(AuthInterceptor(authManager))
+            .addInterceptor(RestParamsInterceptor(json))
+            .addInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY })
+            .build()
         shouldReconnect = true
+        this.listener = listener
         initWebSocket()
     }
 
@@ -33,5 +49,6 @@ class WebSocketClient(
         shouldReconnect = false
         webSocket?.cancel()
         webSocket = null
+        client = null
     }
 }
