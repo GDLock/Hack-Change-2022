@@ -72,7 +72,6 @@ class ChatScreen : Fragment() {
     }
 
     private fun openMenu() {
-        (requireActivity() as MainActivity).navController.navigate(R.id.action_chatScreen_to_chatMenuScreen)
+        (requireActivity() as MainActivity).navController.popBackStack()
     }
-
 }
