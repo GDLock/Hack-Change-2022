@@ -18,7 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class ChatMenuScreen : Fragment() {
 
 
-    private val lst = listOf<Question>(
+    private val lst = listOf(
         Question(R.drawable.logo_bank, "С чего начать"),
         Question(R.drawable.logo_bank, "Как инвестировать"),
         Question(R.drawable.logo_bank, "Какие акции покупать первыми"),
